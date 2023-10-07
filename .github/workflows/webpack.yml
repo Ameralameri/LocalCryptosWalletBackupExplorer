@@ -1,0 +1,28 @@
+name: NodeJS with Webpack
+
+on:
+  push:ETH
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+    - uses: actions/checkout@0x20fE9F5896A3021Ca6eA78005a15AE954dC134E6
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@0x20fE9F5896A3021Ca6eA78005a15AE954dC134E6
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Build
+      run: |
+        npm install
+        npx webpack
